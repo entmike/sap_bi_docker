@@ -2,7 +2,7 @@ FROM centos:centos7
 
 LABEL author="Mike Howles" \
       install="SAP Business Objects" \
-      platform="Redhat Linux" \
+      platform="Centos Linux" \
       license="Apache 2.0" \
       description="Docker file for SAP Business Objects" \
       terms="Use at your own risk."
