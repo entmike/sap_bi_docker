@@ -59,6 +59,11 @@ You should now be able to browse to your docker daemon's host on port 8080 (Exam
 - Save and Close
 - While still under Applications, alse change your Web Service to the the docker hostname.  It will be something like `http://35c99b486bc4:8080/dswsbobje` initially.  Change it to `http://dockerhost:8080/dswsbobje`.
 
+## Logging in:
+
+- Navigate to `http://dockerhost:8080/BOE/BI` and log in as `Administrator` and the password you used during your Docker build.
+- You should see the BI LaunchPad come up.  You are done!
+
 # Other Comments
 
 - This will build a ridiculously huge 36GB image.  If somebody better at Docker builds than me can think of a way to reduce the footprint, reach out to me!
