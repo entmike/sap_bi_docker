@@ -2,6 +2,8 @@
 
 This is not supported by SAP.  Refer to SAP Note [2496083](https://apps.support.sap.com/sap/support/knowledge/preview/en/2496083) for SAP's statement on the matter.  I take no responsibility if you get this working or not, nor would I do this in production but chances are if you are actually considering this, you're probably a developer and don't care. 👀
 
+Also, we won't be using Redhat Linux or SUSE as a base OS.  We'll use Centos (bla bla also not supported, but it'll work for this exercise.)
+
 # Prerequisites
 
 - BusinessObjects 4.3 Linux Server installation files in your Docker build context folder.  Move folder `install` to the base of your build folder.
