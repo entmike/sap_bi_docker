@@ -64,7 +64,7 @@ You should now be able to browse to your docker daemon's host on port 8080 (Exam
 - Navigate to `http://dockerhost:8080/BOE/BI` and log in as `Administrator` and the password you used during your Docker build.
 - You should see the BI LaunchPad come up.  You are done!
 
-![Image of BI LaunchPad](BI LaunchPad.png)
+![Image of BI LaunchPad](https://github.com/entmike/sap_bi_docker/raw/master/4.3/BI%20LaunchPad.png)
 
 # Other Comments
 
