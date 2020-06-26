@@ -56,6 +56,8 @@ You should now be able to browse to your docker daemon's host on port 8080 (Exam
 - Log into CMC
 - Go to Applications
 - Change your RESTful Web Service to the docker hostname.  It will be something like `http://35c99b486bc4:8080/biprws` initially.  Change it to `http://dockerhost:8080/biprws`
+- Save and Close
+- While still under Applications, alse change your Web Service to the the docker hostname.  It will be something like `http://35c99b486bc4:8080/dswsbobje` initially.  Change it to `http://dockerhost:8080/dswsbobje`.
 
 # Other Comments
 
