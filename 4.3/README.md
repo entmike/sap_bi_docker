@@ -49,6 +49,26 @@ Starting all servers...
 Starting localhost...
 ```
 
+# Ports and Volumes
+
+## Ports
+
+The following ports are published for use by the image:
+
+  - `8080` Tomcat
+  - `6405` Web Services
+  - `6400` CMS
+  
+## Volumes
+
+Upon first launch of your container, the following volumes are created:
+
+  - `/bi/sqlanywhere/database` (CMS and Audit database files)
+  - `/bi/sap_bobj/logging` (BOBJ Log files)
+  - `/bi/sap_bobj/data` (File Repository files)
+  
+  Note: These were the main 3 I could think of, reach out to me if I've missed any!
+
 You should now be able to browse to your docker daemon's host on port 8080 (Example http://dockerhost:8080/BOE/CMC)
 
 ## Initial Config tweaks:
