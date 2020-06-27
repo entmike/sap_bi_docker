@@ -2,7 +2,7 @@ FROM centos:centos8 AS preinstall
 
 LABEL author="Mike Howles" \
       install="SAP Business Objects 4.3" \
-      platform="Redhat Linux" \
+      platform="Centos 8" \
       license="Apache 2.0" \
       description="Docker file for SAP Business Objects" \
       terms="Use at your own risk."
