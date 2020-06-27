@@ -56,6 +56,14 @@ sed -i -- 's/'$(cat /bi/currhost.txt)'/localhost/g' /bi/sap_bobj/ccm.config && \
 sed -i -- 's/'$(cat /bi/currhost.txt)'/localhost/g' /bi/sap_bobj/tomcat/webapps/BOE/WEB-INF/config/default/* &&\
 rm /bi/currhost.txt
 
+USER root
+
+# Remove unnecessary files to reduce image size
+RUN rm -Rf /bi/InstallData &&\
+rm -Rf /bi/sap_bobj/tomcat/work/Catalina/*
+
+USER bi
+
 FROM centos:centos8
 
 LABEL author="Mike Howles" \
