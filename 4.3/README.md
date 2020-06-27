@@ -90,4 +90,4 @@ You should now be able to browse to your docker daemon's host on port 8080 (Exam
 
 # Other Comments
 
-- This will build a ridiculously huge 30.8 GB image.  If somebody better at Docker builds than me can think of a way to reduce the footprint, reach out to me!
+- This will build a huge 23 GB image.  If somebody better at Docker builds than me can think of a way to reduce the footprint, reach out to me!  I've shaved off 7GB by using a multistage Docker build to shed the install media, but I feel like it could get smaller somehow.
