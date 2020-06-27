@@ -1,4 +1,4 @@
-FROM centos:centos8
+FROM centos:centos8 AS preinstall
 
 LABEL author="Mike Howles" \
       install="SAP Business Objects 4.3" \
@@ -35,7 +35,7 @@ choosesmdintegration=nointegrate \
 clusterkey=$password \
 cmspassword=$password \
 cmsport=6400 \
-installdir=/bi42/ \
+installdir=/bi/ \
 installtype=default \
 neworexistinglcm=existing \
 productkey=$license_key \
@@ -55,6 +55,30 @@ features=JavaWebApps1,MobileServers,MobileAddon,MobileServices,IntegratedTomcat,
 sed -i -- 's/'$(cat /bi/currhost.txt)'/localhost/g' /bi/sap_bobj/ccm.config && \
 sed -i -- 's/'$(cat /bi/currhost.txt)'/localhost/g' /bi/sap_bobj/tomcat/webapps/BOE/WEB-INF/config/default/* &&\
 rm /bi/currhost.txt
+
+FROM centos:centos8
+
+LABEL author="Mike Howles" \
+      install="SAP Business Objects 4.3" \
+      platform="Centos 8" \
+      license="Apache 2.0" \
+      description="Docker file for SAP Business Objects" \
+      terms="Use at your own risk."
+
+USER root
+
+# Prerequisite
+RUN yum install -y glibc-2.28-101.el8.i686 libstdc++-8.3.1-5.el8.0.2.x86_64 libstdc++-8.3.1-5.el8.0.2.i686 libnsl-2.28-101.el8.i686 libcrypt.so.1 xz-libs-5.2.4-3.el8.i686 libnsl-2.28-101.el8.i686 libnsl.x86_64 
+
+ENV LANG=en_US.utf8
+ENV LC_ALL=en_US.utf8
+
+RUN useradd -ms /bin/bash bi
+COPY --from=preinstall /bi /bi
+
+USER bi
+ENV LANG=en_US.utf8
+ENV LC_ALL=en_US.utf8
 
 # Ports
 EXPOSE 8080 6400 6405
