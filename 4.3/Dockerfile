@@ -60,7 +60,8 @@ USER root
 
 # Remove unnecessary files to reduce image size
 RUN rm -Rf /bi/InstallData &&\
-rm -Rf /bi/sap_bobj/tomcat/work/Catalina/*
+rm -Rf /bi/sap_bobj/tomcat/work/Catalina/* &&\
+rm -Rf /bi/sap_bobj/enterprise_xi40/warfiles/*
 
 USER bi
 
