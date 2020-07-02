@@ -1,4 +1,4 @@
-FROM centos:centos8 AS preinstall
+FROM centos:centos8 AS prep
 
 LABEL author="Mike Howles" \
       install="SAP Business Objects 4.3" \
@@ -9,14 +9,16 @@ LABEL author="Mike Howles" \
 
 USER root
 
-ARG license_key
-ARG password
-
 # Prerequisite
 RUN yum install -y glibc-2.28-101.el8.i686 libstdc++-8.3.1-5.el8.0.2.x86_64 libstdc++-8.3.1-5.el8.0.2.i686 libnsl-2.28-101.el8.i686 libcrypt.so.1 xz-libs-5.2.4-3.el8.i686 libnsl-2.28-101.el8.i686 libnsl.x86_64 
 
 ENV LANG=en_US.utf8
 ENV LC_ALL=en_US.utf8
+
+FROM prep AS preinstall
+
+ARG license_key
+ARG password
 
 # Copy install media
 ADD install/ /source
@@ -64,28 +66,10 @@ rm -Rf /bi/sap_bobj/tomcat/work/Catalina/* &&\
 rm -Rf /bi/sap_bobj/enterprise_xi40/warfiles/* &&\
 rm -Rf /bi/sap_bobj/enterprise_xi40/wdeploy/*
 
-USER bi
+FROM prep
 
-FROM centos:centos8
-
-LABEL author="Mike Howles" \
-      install="SAP Business Objects 4.3" \
-      platform="Centos 8" \
-      license="Apache 2.0" \
-      description="Docker file for SAP Business Objects" \
-      terms="Use at your own risk."
-
-USER root
-
-# Prerequisite
-RUN yum install -y glibc-2.28-101.el8.i686 libstdc++-8.3.1-5.el8.0.2.x86_64 libstdc++-8.3.1-5.el8.0.2.i686 libnsl-2.28-101.el8.i686 libcrypt.so.1 xz-libs-5.2.4-3.el8.i686 libnsl-2.28-101.el8.i686 libnsl.x86_64 
-
-ENV LANG=en_US.utf8
-ENV LC_ALL=en_US.utf8
-
-RUN useradd -ms /bin/bash bi
 COPY --from=preinstall /bi /bi
-
+RUN useradd -ms /bin/bash bi
 USER bi
 ENV LANG=en_US.utf8
 ENV LC_ALL=en_US.utf8
@@ -98,4 +82,10 @@ VOLUME /bi/sqlanywhere/database
 VOLUME /bi/sap_bobj/logging
 VOLUME /bi/sap_bobj/data
 
-CMD /bi/sap_bobj/sqlanywhere_startup.sh && /bi/sap_bobj/tomcatstartup.sh && /bi/sap_bobj/startservers && tail -f /dev/null
+CMD /bi/sap_bobj/sqlanywhere_startup.sh && /bi/sap_bobj/tomcatstartup.sh && /bi/sap_bobj/startservers && \
+tail -F /bi/sap_bobj/logging/wacs_localhost.WebApplicationContainerServer_ncs.trc --retry | sed 's/^/[WACS]\t/' & \
+tail -F /bi/sap_bobj/logging/aps_localhost.AdaptiveProcessingServer_ncs.trc --retry | sed 's/^/[APS]\t/' & \
+tail -F /bi/sap_bobj/logging/webiserver_localhost.WebIntelligenceProcessingServer_ncs.trc --retry | sed 's/^/[WEBI]:\t/' & \
+tail -F /bi/sap_bobj/logging/connectionserver_localhost.ConnectionServer_ncs.trc --retry | sed 's/^/[CS]\t/' & \
+tail -F /bi/sap_bobj/logging/cr2020proc_localhost.CrystalReports2020ProcessingServer_ncs.trc --retry | sed 's/^/[CR2020]\t/' & \
+tail -F /bi/sap_bobj/logging/crproc_localhost.CrystalReportsProcessingServer_ncs.trc --retry | sed 's/^/[CR]\t/'
