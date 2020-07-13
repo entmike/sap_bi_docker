@@ -1,0 +1,42 @@
+version: '2'
+
+services:
+
+  bi4:
+    image: your-bi4-build
+    container_name: bi4
+    hostname: bi4
+    volumes:
+      - cms:/bi/sqlanywhere/database
+      - frs:/bi/sap_bobj/data
+      - logs:/bi/sap_bobj/logging
+    ports:
+      - 8080:8080
+      - 6405:6405
+
+  hxe:
+    image: store/saplabs/hanaexpress:2.00.045.00.20200121.1
+    container_name: hxe
+    hostname: hxe
+    volumes:
+      - hana-db:/hana/mounts
+    ports:
+      - 39041:39041
+      - 39017:39017
+      - 39013:39013
+      - 39015:39015
+      - 8090:8090
+
+volumes:
+  hana-db:
+    external:
+      name: hana-db
+  cms:
+    external:
+      name: cms
+  frs:
+    external:
+      name: frs
+  logs:
+    external:
+      name: logs
