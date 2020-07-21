@@ -10,7 +10,7 @@ LABEL author="Mike Howles" \
 USER root
 
 # Prerequisite
-RUN yum install -y glibc-2.28-101.el8.i686 libstdc++-8.3.1-5.el8.0.2.x86_64 libstdc++-8.3.1-5.el8.0.2.i686 libnsl-2.28-101.el8.i686 libcrypt.so.1 xz-libs-5.2.4-3.el8.i686 libnsl-2.28-101.el8.i686 libnsl.x86_64 
+RUN yum install -y ncurses glibc-2.28-101.el8.i686 libstdc++-8.3.1-5.el8.0.2.x86_64 libstdc++-8.3.1-5.el8.0.2.i686 libnsl-2.28-101.el8.i686 libcrypt.so.1 xz-libs-5.2.4-3.el8.i686 libnsl-2.28-101.el8.i686 libnsl.x86_64 
 
 ENV LANG=en_US.utf8
 ENV LC_ALL=en_US.utf8
